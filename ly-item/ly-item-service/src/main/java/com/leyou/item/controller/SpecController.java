@@ -77,6 +77,14 @@ public class SpecController {
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-
+    /**
+     * 查询规格参数组，及组内参数
+     * @param id
+     * @return
+     */
+    @GetMapping("of/category")
+    public ResponseEntity<List<SpecGroupDTO>> findSpecsByCid(@RequestParam(name = "id")Long id){
+        return ResponseEntity.ok(specService.findSpecsByCid(id));
+    }
 
 }

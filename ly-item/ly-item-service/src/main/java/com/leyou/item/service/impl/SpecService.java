@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.CollectionUtils;
 
 import java.util.List;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 /**
  * @创建人 zhenzekun
@@ -83,5 +85,18 @@ public class SpecService {
         //删除tb_spec_group表
         //删除tb_spec_param表
         //删除商品
+    }
+
+    public List<SpecGroupDTO> findSpecsByCid(Long cid) {
+        //查询规格组
+        List<SpecGroupDTO> specGroupDTOList = findSpecGroupByCategoryId(cid);
+        //查询规格参数
+        List<SpecParamDTO> params = findSpecParam(null, cid, null);
+        //将规格参数按照组id来分组
+        Map<Long, List<SpecParamDTO>> paramMap = params.stream().collect(Collectors.groupingBy(SpecParamDTO::getGroupId));
+        for (SpecGroupDTO specGroupDTO : specGroupDTOList) {
+            specGroupDTO.setParams(paramMap.get(specGroupDTO.getId()));
+        }
+        return specGroupDTOList;
     }
 }

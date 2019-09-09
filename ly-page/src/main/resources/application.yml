@@ -10,3 +10,7 @@ eureka:
   client:
     service-url:
       defaultZone: http://127.0.0.1:10086/eureka
+ly:
+  static:
+    itemDir: E:\nginx\nginx-1.14.0\html\item
+    itemTemplate: item

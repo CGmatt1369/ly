@@ -207,4 +207,13 @@ public class GoodsService {
         throw  new LyException(ExceptionEnum.INSERT_OPERATION_FAIL);
     }
 }
+
+    public SpuDTO findSpuById(Long id) {
+        TbSpu tbSpu = spuService.getById(id);
+        if (tbSpu==null){
+            throw new LyException(ExceptionEnum.GOODS_NOT_FOUND);
+        }
+        return BeanHelper.copyProperties(tbSpu,SpuDTO.class);
+
+    }
 }
